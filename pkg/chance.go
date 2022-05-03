@@ -21,8 +21,9 @@ func NewSelector() *Selector {
 	}
 }
 
-func (s *Selector) AddOption(option ...*Option) {
+func (s *Selector) AddOption(option ...*Option) *Selector {
 	s.options = append(s.options, option...)
+	return s
 }
 
 func (s *Selector) GetOption() *Option {
