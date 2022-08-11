@@ -4,8 +4,6 @@ import (
 	"crypto/rand"
 	"fmt"
 	"os"
-	"reflect"
-	"unsafe"
 )
 
 func RandomInt(max int) (int, error) {
@@ -16,17 +14,15 @@ func RandomInt(max int) (int, error) {
 	}
 
 	fmt.Println(d)
-	fmt.Println(*byteSliceToIntPtr(d))
+	val := 0
+	for i := 0; i < len(d); i++ {
+		fmt.Println("ASS")
+		val += int(d[i]) << (8 * i)
+	}
+	fmt.Println(val)
 
-	return 0, nil
+	return val % max, nil
 
-}
-
-// scary shit; understand before use
-func byteSliceToIntPtr(b []byte) *int {
-	shdr := *(*reflect.SliceHeader)(unsafe.Pointer(&b))
-
-	return unsafe.Pointer(shdr.Data)
 }
 
 // returns size (in bytes) required to hold i
