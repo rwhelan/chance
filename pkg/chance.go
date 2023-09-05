@@ -51,3 +51,10 @@ func Percent(i int) func() bool {
 		return r.Intn(100) < i
 	}
 }
+
+func Chance(s, i int) func() bool {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return func() bool {
+		return r.Intn(s) < i
+	}
+}
